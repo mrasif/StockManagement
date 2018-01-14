@@ -3,8 +3,6 @@ package com.example.stockmanagement.apis;
 import com.example.stockmanagement.models.*;
 import com.example.stockmanagement.utils.AppConfig;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -250,14 +248,92 @@ public class ApiDatabase {
         return products;
     }
 
-    public static boolean addBill(Bill bill){
-        return Dao.getDatabase().executeNonQuery("INSERT INTO bills(title,description,amount,paid,customer_id,created_at,updated_at) " +
+    public static BillResponse addBill(Bill bill){
+        boolean flag=false;
+        flag=Dao.getDatabase().executeNonQuery("INSERT INTO bills(title,description,amount,paid,customer_id,created_at,updated_at) " +
                 "VALUES('"+bill.getTitle()+"','"+bill.getDescription()+"','"+ bill.getAmount()+"','"+bill.getPaid()+"',"+ bill.getCustomer_id()+",'"+bill.getCreated_at()+"','"+bill.getUpdated_at()+"')");
+        if(flag){
+            ResultSet rs=Dao.getDatabase().executeSQLQuery("SELECT * FROM bills ORDER BY id desc limit 0,1");
+            try {
+                if (rs.next()) {
+                    bill.setId(rs.getInt("id"));
+                    for (Invoice invoice:bill.getInvoices()){
+                        invoice.setBill_id(bill.getId());
+                        flag=addInvoice(invoice);
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return new BillResponse(flag,bill);
+    }
+
+    public static Bill getBill(int id){
+        Bill bill=new Bill();
+        ResultSet rs=Dao.getDatabase().executeSQLQuery("SELECT * FROM bills WHERE id="+id);
+        try {
+            if (rs.next()){
+                bill.setId(rs.getInt("id"));
+                bill.setTitle(rs.getString("title"));
+                bill.setDescription(rs.getString("description"));
+                bill.setAmount(rs.getString("amount"));
+                bill.setPaid(rs.getString("paid"));
+                bill.setCustomer_id(rs.getInt("customer_id"));
+                bill.setCreated_at(rs.getString("created_at"));
+                bill.setUpdated_at(rs.getString("updated_at"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bill;
+    }
+
+    public static List<Bill> getBills(int customer_id){
+        List<Bill> bills=new ArrayList<>();
+        ResultSet rs=Dao.getDatabase().executeSQLQuery("SELECT * FROM bills WHERE customer_id="+customer_id);
+        try {
+            while (rs.next()){
+                Bill bill=new Bill();
+                bill.setId(rs.getInt("id"));
+                bill.setTitle(rs.getString("title"));
+                bill.setDescription(rs.getString("description"));
+                bill.setAmount(rs.getString("amount"));
+                bill.setPaid(rs.getString("paid"));
+                bill.setCustomer_id(rs.getInt("customer_id"));
+                bill.setCreated_at(rs.getString("created_at"));
+                bill.setUpdated_at(rs.getString("updated_at"));
+                bills.add(bill);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bills;
     }
 
     public static boolean addInvoice(Invoice invoice){
         return Dao.getDatabase().executeNonQuery("INSERT INTO invoices(product_id,bill_id,quantity,created_at,updated_at) " +
                 "VALUES("+invoice.getProduct_id()+","+invoice.getBill_id()+","+ invoice.getQuantity()+",'"+invoice.getCreated_at()+"','"+invoice.getUpdated_at()+"')");
+    }
+
+    public static List<Invoice> getInvoices(int bill_id){
+        List<Invoice> invoices=new ArrayList<>();
+        ResultSet rs=Dao.getDatabase().executeSQLQuery("SELECT * FROM invoices WHERE bill_id="+bill_id);
+        try {
+            while (rs.next()){
+                Invoice invoice=new Invoice();
+                invoice.setId(rs.getInt("id"));
+                invoice.setProduct_id(rs.getInt("product_id"));
+                invoice.setBill_id(rs.getInt("bill_id"));
+                invoice.setQuantity(rs.getInt("quantity"));
+                invoice.setCreated_at(rs.getString("created_at"));
+                invoice.setUpdated_at(rs.getString("updated_at"));
+                invoices.add(invoice);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return invoices;
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.stockmanagement.models;
 import com.example.stockmanagement.apis.ApiDatabase;
 import com.example.stockmanagement.utils.AppConfig;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Bill {
     int customer_id;
     String created_at;
     String updated_at;
+    List<Invoice> invoices;
 
     public Bill() {
         this.id = 0;
@@ -25,6 +27,7 @@ public class Bill {
         this.customer_id=0;
         this.created_at = AppConfig.dateToString(new Date());
         this.updated_at = AppConfig.dateToString(new Date());
+        invoices=new ArrayList<>();
     }
 
     public int getId() {
@@ -91,11 +94,15 @@ public class Bill {
         this.customer_id = customer_id;
     }
 
-    public Customer getCustomer(){
-        return ApiDatabase.getCustomer(this.getCustomer_id());
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
     }
 
     public List<Invoice> getInvoices(){
-        return null;
+        return ApiDatabase.getInvoices(this.id);
+    }
+
+    public Customer getCustomer(){
+        return ApiDatabase.getCustomer(this.getCustomer_id());
     }
 }

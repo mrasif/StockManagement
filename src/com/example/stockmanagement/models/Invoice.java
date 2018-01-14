@@ -1,5 +1,6 @@
 package com.example.stockmanagement.models;
 
+import com.example.stockmanagement.apis.ApiDatabase;
 import com.example.stockmanagement.utils.AppConfig;
 
 import java.util.Date;
@@ -67,5 +68,13 @@ public class Invoice {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Bill getBill(){
+        return ApiDatabase.getBill(this.bill_id);
+    }
+
+    public Product getProduct(){
+        return ApiDatabase.getProduct(this.product_id);
     }
 }

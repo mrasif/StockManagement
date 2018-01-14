@@ -1,5 +1,6 @@
 package com.example.stockmanagement.models;
 
+import com.example.stockmanagement.apis.ApiDatabase;
 import com.example.stockmanagement.utils.AppConfig;
 
 import java.util.Date;
@@ -71,6 +72,6 @@ public class Customer {
     }
 
     public List<Bill> getBills(){
-        return null;
+        return ApiDatabase.getBills(this.id);
     }
 }
