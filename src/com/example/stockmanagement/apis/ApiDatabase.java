@@ -1,8 +1,6 @@
 package com.example.stockmanagement.apis;
 
-import com.example.stockmanagement.models.Customer;
-import com.example.stockmanagement.models.Product;
-import com.example.stockmanagement.models.User;
+import com.example.stockmanagement.models.*;
 import com.example.stockmanagement.utils.AppConfig;
 
 import java.net.URLDecoder;
@@ -250,6 +248,16 @@ public class ApiDatabase {
             e.printStackTrace();
         }
         return products;
+    }
+
+    public static boolean addBill(Bill bill){
+        return Dao.getDatabase().executeNonQuery("INSERT INTO bills(title,description,amount,paid,customer_id,created_at,updated_at) " +
+                "VALUES('"+bill.getTitle()+"','"+bill.getDescription()+"','"+ bill.getAmount()+"','"+bill.getPaid()+"',"+ bill.getCustomer_id()+",'"+bill.getCreated_at()+"','"+bill.getUpdated_at()+"')");
+    }
+
+    public static boolean addInvoice(Invoice invoice){
+        return Dao.getDatabase().executeNonQuery("INSERT INTO invoices(product_id,bill_id,quantity,created_at,updated_at) " +
+                "VALUES("+invoice.getProduct_id()+","+invoice.getBill_id()+","+ invoice.getQuantity()+",'"+invoice.getCreated_at()+"','"+invoice.getUpdated_at()+"')");
     }
 
 }
