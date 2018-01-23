@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 
 import com.example.stockmanagement.apis.ApiDatabase;
+import com.example.stockmanagement.applications.AppDashboard;
 import com.example.stockmanagement.applications.AppLogin;
 import com.example.stockmanagement.applications.AppSignUp;
 import com.example.stockmanagement.utils.AllKeys;
@@ -102,5 +103,13 @@ public class LoginScene extends AppLogin {
         assert btnSignUp != null : "fx:id=\"btnSignUp\" was not injected: check your FXML file 'LoginScene.fxml'.";
         assert btnForgotPass != null : "fx:id=\"btnForgotPass\" was not injected: check your FXML file 'LoginScene.fxml'.";
 
+
+        setUI();
+    }
+
+    private void setUI() {
+        if(SharedPreferences.getBoolean(AllKeys.IS_LOGIN)){
+            new AppDashboard().startApp();
+        }
     }
 }

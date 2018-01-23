@@ -12,7 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class AppDashboard extends Application {
+public class AppBuyProduct extends Application {
 
     protected Parent root;
     protected Stage parentStage;
@@ -44,9 +44,9 @@ public class AppDashboard extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.parentStage=stage;
-        this.root = FXMLLoader.load(getClass().getResource(AllKeys.BASE_SCENE+"DashboardScene.fxml"));
+        this.root = FXMLLoader.load(getClass().getResource(AllKeys.BASE_SCENE+"BuyProductScene.fxml"));
 //        stage.getIcons().add(new Image(getClass().getResourceAsStream(AllKeys.BASE_RESOURCE+"logo.png")));
-        stage.setTitle("Dashboard");
+        stage.setTitle("Buy Products");
         stage.resizableProperty().setValue(Boolean.FALSE);
 //        stage.initStyle(StageStyle.UNDECORATED);
         stage.initStyle(StageStyle.DECORATED);

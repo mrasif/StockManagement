@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="526.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.stockmanagement.scenes.ProductTypeScene">
+   <children>
+      <Pane prefHeight="112.0" prefWidth="758.0" style="-fx-background-color: #050588;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="24.0" layoutY="32.0" style="-fx-text-fill: #FFFFFF;" text="Stock Management">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="43.0" layoutY="138.0" text="ID" />
+      <Label layoutX="296.0" layoutY="138.0" text="Title" />
+      <Label layoutX="39.0" layoutY="171.0" text="Description" />
+      <Label layoutX="39.0" layoutY="204.0" text="Quantity" />
+      <Label layoutX="432.0" layoutY="204.0" text="Rate" />
+      <Label layoutX="39.0" layoutY="238.0" text="Created at" />
+      <TextField fx:id="tfId" layoutX="133.0" layoutY="133.0" prefHeight="26.0" prefWidth="106.0" />
+      <TextField fx:id="tfTitle" layoutX="343.0" layoutY="133.0" prefHeight="26.0" prefWidth="387.0" />
+      <TextField fx:id="tfDescription" layoutX="133.0" layoutY="166.0" prefHeight="26.0" prefWidth="598.0" />
+      <TextField fx:id="tfQuantity" layoutX="134.0" layoutY="199.0" prefHeight="26.0" prefWidth="223.0" />
+      <TextField fx:id="tfRate" layoutX="483.0" layoutY="199.0" prefHeight="26.0" prefWidth="247.0" />
+      <TextField fx:id="tfCreatedAt" layoutX="134.0" layoutY="233.0" prefHeight="26.0" prefWidth="223.0" />
+      <Label layoutX="396.0" layoutY="238.0" text="Updated at" />
+      <TextField fx:id="tfUpdatedAt" layoutX="484.0" layoutY="233.0" prefHeight="26.0" prefWidth="247.0" />
+      <Button fx:id="btnAdd" layoutX="371.0" layoutY="269.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Add" />
+      <Button fx:id="btnUpdate" layoutX="463.0" layoutY="269.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="83.0" text="Update" />
+      <Button fx:id="btnRemove" layoutX="558.0" layoutY="269.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Remove" />
+      <Button fx:id="btnClear" layoutX="665.0" layoutY="269.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" text="Clear" />
+      <TableView fx:id="tvProducts" layoutX="34.0" layoutY="302.0" prefHeight="211.0" prefWidth="697.0">
+        <columns>
+          <TableColumn fx:id="tcId" prefWidth="54.0" text="ID" />
+          <TableColumn fx:id="tcTitle" prefWidth="101.0" text="TITLE" />
+            <TableColumn fx:id="tcDescription" prefWidth="170.0" text="DESCRIPTION" />
+            <TableColumn fx:id="tcQuantity" prefWidth="90.0" text="QUANTITY" />
+            <TableColumn fx:id="tcRate" prefWidth="72.0" text="RATE" />
+            <TableColumn fx:id="tcCreatedAt" prefWidth="103.0" text="CREATED AT" />
+            <TableColumn fx:id="tcUpdatedAt" prefWidth="99.0" text="UPDATED AT" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
